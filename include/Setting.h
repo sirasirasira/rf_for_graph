@@ -3,7 +3,7 @@
 #include "IncludeLib.h"
 
 struct Setting {
-	double minsup = 1; // int: support size, float: support rate
+	double minsup = 1; // 1~: support size, 0~1: support rate
 	size_t maxpat = -1; // max graph size
 	size_t num_of_trees = 500;
 	size_t max_depth = -1;
