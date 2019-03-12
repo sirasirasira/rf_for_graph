@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Structures.h"
-#include "Setting.h"
 
 #include "RandomForest.h"
 #include "Planter.h"
