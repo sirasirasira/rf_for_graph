@@ -1,0 +1,76 @@
+#pragma once
+
+#include "MyInclude.h"
+#include "StructuresGspan.h"
+#include "Spliter.h"
+#include "IsMin.h"
+
+class Gspan {
+	struct CacheRecord {
+		GraphToTracers g2tracers;
+		vector<std::pair<DFSCode, vector<ID>>> childs;
+		double feature_importance;
+		CacheRecord() {
+			feature_importance = 0;
+		}
+		CacheRecord(GraphToTracers g2tracers, vector<std::pair<DFSCode, vector<ID>>> childs)
+			: g2tracers(g2tracers), childs(childs) {
+			feature_importance = 0;
+		}
+	};
+
+	public:
+		size_t minsup;
+		size_t maxpat;
+
+		void runFirst();
+		void run();
+		
+		inline const map<Pattern, CacheRecord>& getCache() {
+			return cache;
+		}
+
+		inline void reportCache() {
+			std::cout << "Report Cache Infomation" << std::endl;
+			for (auto itr = cache.begin(); itr != cache.end(); ++itr) {
+				std::cout << "pattern : " << itr->first << std::endl;
+			}
+		}
+
+		inline void updataFeatureImportance(const Pattern& pattern, double importance) {
+			cache.at(pattern).feature_importance += importance;
+		}
+
+		inline vector<ID> getPosiIds(const GraphToTracers& tracers) {
+			vector<ID> vec(tracers.size());
+			size_t i = 0;
+			for (auto x : tracers) {
+				vec[i] = tracers.first;
+				i++;
+			}
+			return vec;
+		}
+
+		void setSpliterPtr(Spliter* ptr) {
+			spliter = ptr;
+		}
+
+		void setMinsup(size_t _minsup) {
+			minsup = _minsup;
+		}
+
+		void setMaxpat(size_t _maxpat) {
+			Maxpat = _maxpat;
+		}
+
+	pribate:
+		Spliter* spliter;
+		IsMin is_min;
+		map<Pattern, CacheRecord> cache; // inserted data must keep pointer
+
+		void edgeGrow();
+		size_t support(GraphToTracers& g2tracers);
+		void report(GraphToTracers& g2tracers);
+		int scanGspan(GraphToTracers& g2tracers, PairSorter& b_heap, map<int, PairSorter, std::greater<int>>& f_heap) const ;
+		bool check_pattern(Pattern pattern, GraphToTracers& g2tracers);
+};
