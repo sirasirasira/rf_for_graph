@@ -9,8 +9,8 @@ struct Setting {
 	size_t max_depth = -1;
 	size_t min_samples_split = 2;
 	double min_impurity_decrease = 0.0;
-	double data_used = 1.0;
-	size_t num_of_path = 100;
+	double data_used = 0.36;
+	size_t search_paths = 100;
 
 	void print() {
 		cout 
@@ -21,7 +21,7 @@ struct Setting {
 			<< " min_samples_split " << min_samples_split
 			<< " min_impurity_decrease " << min_impurity_decrease
 			<< " data_used " << data_used
-			<< " num_of_path " << num_of_path
+			<< " search_paths " << search_paths
 			<< endl;
 	}
 };

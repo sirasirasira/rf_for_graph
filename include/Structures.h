@@ -14,7 +14,7 @@ struct Pair {
 		a = _a;
 		b = _b;
 	}
-}
+};
 
 inline bool operator < (const Pair& l, const Pair& r) {
 	if (l.a != r.a) return (l.a < r.a);
@@ -36,7 +36,7 @@ struct Triplet {
 	inline Triplet reverse() {
 		return Triplet(z, y, x);
 	}
-}
+};
 
 inline std::ostream& operator << (std::ostream& os, const Triplet t) {
 	os << t.x << "," << t.y << "," << t.z;

@@ -45,7 +45,7 @@ class Gspan {
 			vector<ID> vec(tracers.size());
 			size_t i = 0;
 			for (auto x : tracers) {
-				vec[i] = tracers.first;
+				vec[i] = x.first;
 				i++;
 			}
 			return vec;
@@ -60,10 +60,10 @@ class Gspan {
 		}
 
 		void setMaxpat(size_t _maxpat) {
-			Maxpat = _maxpat;
+			maxpat = _maxpat;
 		}
 
-	pribate:
+	private:
 		Spliter* spliter;
 		IsMin is_min;
 		map<Pattern, CacheRecord> cache; // inserted data must keep pointer

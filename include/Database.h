@@ -11,10 +11,10 @@
 struct Database {
 	GraphData gdata;
 	vector<double> ys;
-	vector<double> y_predictions;
+	vector<vector<double>> y_predictions;
 
 	RandomForest random_forest;
-	Plantar plantar;
+	Planter plantar;
 	Spliter spliter;
 	Gspan gspan;
 	Evaluater evaluater;

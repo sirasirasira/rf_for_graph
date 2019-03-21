@@ -4,10 +4,10 @@
 #include "Structures.h"
 
 struct EdgeTracer {
-	VartexPair vpair;
+	VertexPair vpair;
 	EdgeTracer* predec;
 	explicit EdgeTracer() {};
-	explicit EdgeTracer(VartexPair vpair, EdgeTracer* predec) : vpair(vpair), predec(predec) {};
+	explicit EdgeTracer(VertexPair vpair, EdgeTracer* predec) : vpair(vpair), predec(predec) {};
 	void set(ID _a, ID _b, ID _id, EdgeTracer* _predec) {
 		vpair.a = _a;
 		vpair.b = _b;
@@ -39,9 +39,9 @@ inline bool operator != (const DFSCode& l, const DFSCode& r) {
 
 inline bool operator < (const DFSCode& l, const DFSCode& r) {
 	if (l.time < r.time) return true;
-	if (l.time > r.time) return false;
+	if (r.time < l.time) return false;
 	if (l.labels < r.labels) return true;
-	if (l.labels < r.labels) return false;
+	if (r.labels < l.labels) return false;
 	return false;
 }
 
@@ -53,10 +53,10 @@ inline bool operator < (const Pattern& l, const Pattern& r) {
 			continue;
 		}
 		if (l[i] < r[i]) return true;
-		if (l[i] > r[i]) return false;
+		if (r[i] < l[i]) return false;
 	}
 	if (l.size() < r.size()) return true;
-	if (l.size() > r.size()) return false;
+	if (r.size() < l.size()) return false;
 	return false;
 }
 

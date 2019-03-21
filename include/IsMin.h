@@ -1,6 +1,6 @@
 #pragma once
 
-#include "MyInclude"
+#include "MyInclude.h"
 
 class IsMin {
 	public:

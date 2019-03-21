@@ -2,7 +2,7 @@
 
 #include "MyInclude.h"
 
-class TreeEnsemble {
+class RandomForest {
 	public:
 		void run();
 
