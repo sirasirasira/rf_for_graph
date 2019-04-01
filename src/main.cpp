@@ -1,4 +1,5 @@
 #include "MyInclude.h"
+#include "Database.h"
 #include "getopt.h"
 
 Setting setting;

@@ -65,12 +65,13 @@ class Gspan {
 
 	private:
 		Spliter* spliter;
+		Pattern pattern;
 		IsMin is_min;
 		map<Pattern, CacheRecord> cache; // inserted data must keep pointer
 
 		void edgeGrow();
 		size_t support(GraphToTracers& g2tracers);
 		void report(GraphToTracers& g2tracers);
-		int scanGspan(GraphToTracers& g2tracers, PairSorter& b_heap, map<int, PairSorter, std::greater<int>>& f_heap) const ;
 		bool check_pattern(Pattern pattern, GraphToTracers& g2tracers);
+		int scanGspan(GraphToTracers& g2tracers, PairSorter& b_heap, map<int, PairSorter, std::greater<int>>& f_heap) const ;
 };

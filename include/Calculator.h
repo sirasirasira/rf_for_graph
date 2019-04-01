@@ -4,18 +4,19 @@
 #include "StructuresGspan.h"
 #include "Database.h"
 
+extern Setting setting;
 extern Database db;
 
 namespace Calculator {
-	inline vector<ID> setDiff(const vector<ID>& a, const vector<ID> b) {
+	inline vector<ID> setDiff(const vector<ID>& a, const vector<ID>& b) {
 		vector<ID> vec;
-		std::set_difference(a.begin(), a.end(), b.begin(). b.end(), std::back_inserter(vec));
+		std::set_difference(a.begin(), a.end(), b.begin(), b.end(), std::back_inserter(vec));
 		return vec;
 	}
 
-	inline vector<ID> setIntersec(const vector<ID>& a, const vector<ID> b) {
+	inline vector<ID> setIntersec(const vector<ID>& a, const vector<ID>& b) {
 		vector<ID> vec;
-		std::set_intersection(a.begin(), a.end(), b.begin(). b.end(), std::back_inserter(vec));
+		std::set_intersection(a.begin(), a.end(), b.begin(), b.end(), std::back_inserter(vec));
 		return vec;
 	}
 
@@ -49,12 +50,13 @@ namespace Calculator {
 	}
 
 	inline vector<ID> concat(vector<ID> a, vector<ID> b) {
-		return std::copy(b.begin(), b.end(), std::back_inserter(a));
+		a.insert(a.end(), b.begin(), b.end());
+		return a;
 	}
 
 	inline double score(const vector<double>& ys, const vector<ID>& raw_targets, const vector<ID>& raw_posi) {
 		db.random_forest.incGainCount();
-		vector<ID> targets = trainOnly(raw_target);
+		vector<ID> targets = trainOnly(raw_targets);
 		vector<ID> posi = setIntersec(targets, raw_posi);
 		vector<ID> nega = setDiff(targets, posi);
 		return posi.size() * imp(ys, posi) + nega.size() * imp(ys, nega);
@@ -62,7 +64,7 @@ namespace Calculator {
 
 	inline double bound(const vector<double>& ys, const vector<ID>& raw_targets, const vector<ID>& raw_posi) {
 		db.random_forest.incBoundCount();
-		vector<ID> targets = trainOnly(raw_target);
+		vector<ID> targets = trainOnly(raw_targets);
 		vector<ID> posi = setIntersec(targets, raw_posi);
 		vector<ID> nega = setDiff(targets, posi);
 		vector<ID> posi_plus;

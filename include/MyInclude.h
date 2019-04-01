@@ -3,4 +3,4 @@
 #include "IncludeLib.h"
 #include "Structures.h"
 #include "Setting.h"
-#include "Database.h"
+struct Database;
