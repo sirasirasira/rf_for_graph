@@ -55,7 +55,7 @@ void readData(std::istream& train_is, std::istream& test_is) {
 	db.gdata.num_of_train = db.gdata.size();
 	read(test_is);
 	db.gdata.num_of_test = db.gdata.size() - db.gdata.num_of_train;
-	db.y_predictions.resize(db.gdata.size());
+	db.y_predictions.resize(db.gdata.num_of_test);
 	//Debug::ys(db.y_predictions); // debug
 }
 

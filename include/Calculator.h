@@ -49,9 +49,12 @@ namespace Calculator {
 		return only;
 	}
 
-	inline vector<ID> concat(vector<ID> a, vector<ID> b) {
-		a.insert(a.end(), b.begin(), b.end());
-		return a;
+	inline vector<ID> concat(vector<ID>& a, vector<ID>& b) {
+		vector<ID> ab;
+		ab.reserve(a.size() + b.size()); // preallocate memory
+		ab.insert(ab.end(), a.begin(), a.end());
+		ab.insert(ab.end(), b.begin(), b.end());
+		return ab;
 	}
 
 	inline double score(const vector<double>& ys, const vector<ID>& raw_targets, const vector<ID>& raw_posi) {

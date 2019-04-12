@@ -14,7 +14,7 @@ struct Database {
 	vector<vector<double>> y_predictions;
 
 	RandomForest random_forest;
-	Planter plantar;
+	Planter planter;
 	Spliter spliter;
 	Gspan gspan;
 	Evaluater evaluater;
