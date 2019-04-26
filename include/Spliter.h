@@ -1,13 +1,13 @@
 #pragma once
 
 #include "MyInclude.h"
-#include "StructuresSpliter.h"
+#include "StructuresGspan.h"
 
 class Spliter {
 	public:
+		void prepare(const vector<ID>& targets);
 		vector<ID> run(const vector<ID>& targets);
-		void update(const Pattern& pattern, const vector<ID>& posi);
-		void push_pq_enum(double bound, PQRecord pqrecord);
+		void update(Pattern pattern, vector<ID> posi);
 		bool isBounded(vector<ID> posi);
 		inline bool valid() {
 			return valid_flg;
@@ -30,11 +30,8 @@ class Spliter {
 		double parent_score;
 		double min_score;
 		Pattern best_pattern;
-		priority_queue<std::pair<double, PQRecord>, vector<std::pair<double, PQRecord>>, std::greater<std::pair<double, PQRecord>>> pq_cache;
-		priority_queue<std::pair<double, PQRecord>, vector<std::pair<double, PQRecord>>, std::greater<std::pair<double, PQRecord>>> pq_enum;
+		priority_queue<std::pair<double, Pattern>, vector<std::pair<double, Pattern>>, std::greater<std::pair<double, Pattern>>> queue;
 
 		void initMinScore();
 		void searchCache();
-		inline bool isFrontier(const Pattern& pattern, const Pattern& bef_pattern);
-		void searchEnum();
 };

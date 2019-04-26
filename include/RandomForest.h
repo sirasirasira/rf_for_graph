@@ -22,12 +22,17 @@ class RandomForest {
 			cout << "bound_count " << bound_count << endl;
 		}
 
-		const vector<ID>& getTargets() {
-			return targets;
+		const vector<ID>& getTrainTargets() {
+			return train_targets;
+		}
+
+		const vector<ID>& getTestTargets() {
+			return test_targets;
 		}
 
 	private:
-		vector<ID> targets;
+		vector<ID> train_targets;
+		vector<ID> test_targets;
 		size_t tree_count;
 		int gain_count = 0;
 		int bound_count = 0;

@@ -9,7 +9,7 @@ struct Setting {
 	size_t max_depth = -1;
 	size_t min_samples_split = 2;
 	double min_impurity_decrease = 0.0;
-	double data_used = 0.36;
+	double data_used = 0.63;
 	size_t search_paths = 100;
 
 	void print() {

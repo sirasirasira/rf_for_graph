@@ -7,14 +7,14 @@
 
 class Gspan {
 	struct CacheRecord {
-		GraphToTracers g2tracers;
-		vector<std::pair<DFSCode, vector<ID>>> childs;
+		vector<ID> posi;
+		vector<DFSCode> childs;
 		double feature_importance;
 		CacheRecord() {
 			feature_importance = 0;
 		}
-		CacheRecord(GraphToTracers g2tracers, vector<std::pair<DFSCode, vector<ID>>> childs)
-			: g2tracers(g2tracers), childs(childs) {
+		CacheRecord(vector<ID> posi, vector<DFSCode> childs)
+			: posi(posi), childs(childs) {
 			feature_importance = 0;
 		}
 	};
@@ -23,11 +23,22 @@ class Gspan {
 		size_t minsup;
 		size_t maxpat;
 
-		void runFirst();
-		void run();
+		void run(const vector<ID>& targets);
 		
 		inline const map<Pattern, CacheRecord>& getCache() {
 			return cache;
+		}
+
+		inline void clearCache() {
+			cache.clear();
+		}
+
+		inline const vector<Pattern>& gete1Patterns() {
+			return e1patterns;
+		}
+
+		inline void cleare1Patterns() {
+			e1patterns.resize(0);
 		}
 
 		inline void reportCache() {
@@ -68,10 +79,11 @@ class Gspan {
 		Pattern pattern;
 		IsMin is_min;
 		map<Pattern, CacheRecord> cache; // inserted data must keep pointer
+		vector<Pattern> e1patterns;
 
-		void edgeGrow();
+		void edgeGrow(GraphToTracers& g2tracers, int pnum);
 		size_t support(GraphToTracers& g2tracers);
 		void report(GraphToTracers& g2tracers);
 		bool check_pattern(Pattern pattern, GraphToTracers& g2tracers);
-		int scanGspan(GraphToTracers& g2tracers, PairSorter& b_heap, map<int, PairSorter, std::greater<int>>& f_heap) const ;
+		int scanGspan(GraphToTracers& g2tracers, map<int, PairSorter, std::greater<int>>& b_heap, map<int, PairSorter, std::greater<int>>& f_heap) const ;
 };

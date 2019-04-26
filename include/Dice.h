@@ -3,10 +3,10 @@
 #include "MyInclude.h"
 #include <random>
 
-static std::random_device seed_gen;
-static std::mt19937 mt(seed_gen());
-
 struct Dice {
+	static std::random_device seed_gen;
+	static std::mt19937 mt;
+
 	static vector<ID> random_sample(int num, double data_used) {
 		int sample_num = num * data_used;
 
@@ -24,5 +24,14 @@ struct Dice {
 		std::sort(res.begin(), res.end());
 
 		return res;
+	}
+
+	static vector<int> make_count(unsigned int size, int pnum) {
+		vector<int> count(size, 0);
+		std::uniform_int_distribution<int> rdm(0, size-1);
+		for (int i = 0; i < pnum; i++) {
+			count[rdm(mt)]++;
+		}
+		return count;
 	}
 };

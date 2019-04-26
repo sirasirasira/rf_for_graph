@@ -55,8 +55,9 @@ void readData(std::istream& train_is, std::istream& test_is) {
 	db.gdata.num_of_train = db.gdata.size();
 	read(test_is);
 	db.gdata.num_of_test = db.gdata.size() - db.gdata.num_of_train;
-	db.y_predictions.resize(db.gdata.num_of_test);
+	db.y_predictions.resize(db.gdata.size(), 0);
 	//Debug::ys(db.y_predictions); // debug
+	db.planter.resizeAdditiveYs(db.gdata.size());
 }
 
 int main(int argc, char** argv) {
@@ -124,6 +125,8 @@ int main(int argc, char** argv) {
 	}
 	setting.print();
 
+	db.gspan.minsup = setting.minsup;
+	db.gspan.maxpat = setting.maxpat;
 	//db.random_forest.run();
 
 	std::cout << "\e[38;5;0m\e[48;5;40m --- end ---  \e[m" << std::endl; // debug

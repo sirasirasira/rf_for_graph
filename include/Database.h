@@ -11,7 +11,7 @@
 struct Database {
 	GraphData gdata;
 	vector<double> ys;
-	vector<vector<double>> y_predictions;
+	vector<double> y_predictions;
 
 	RandomForest random_forest;
 	Planter planter;

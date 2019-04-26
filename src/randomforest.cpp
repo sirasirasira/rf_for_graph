@@ -11,9 +11,9 @@ void CLASS::run() {
 	// std::cout << "debug run" << std::endl; // debug
 	for (tree_count = 1; tree_count <= setting.num_of_trees; tree_count++) {
 		makeTargets();
-		const vector<double>& test_ys = db.planter.run(targets);
-		for (ID id = 0; id < db.gdata.num_of_test; id++) {
-			db.y_predictions[id].push_back(test_ys[id]);
+		const vector<double>& additive_ys = db.planter.run(train_targets, test_targets);
+		for (auto id : test_targets) {
+			db.y_predictions[id] += additive_ys[id] / (double) setting.num_of_trees;
 		}
 		report();
 	}
@@ -22,12 +22,14 @@ void CLASS::run() {
 void CLASS::makeTargets() {
 	// std::cout << "debug makeTargets" << std::endl; // debug
 	ID id;
-	targets.clear();
-	targets = Dice::random_sample(db.gdata.num_of_train, setting.data_used);
+	train_targets.clear();
+	test_targets.clear();
+	train_targets = Dice::random_sample(db.gdata.num_of_train, setting.data_used);
 	for (id = db.gdata.getFirstTestID(); id <= db.gdata.getLastTestID(); id++) {
-		targets.push_back(id);
+		test_targets.push_back(id);
 	}
-	// Debug::IDs(targets); // debug
+	// Debug::IDs(target_trains); // debug
+	// Debug::IDs(target_tests); // debug
 }
 
 void CLASS::report() {

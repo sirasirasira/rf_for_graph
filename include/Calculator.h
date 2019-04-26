@@ -37,18 +37,6 @@ namespace Calculator {
 		return impurity;
 	}
 
-	// assert raw is sorted
-	inline vector<ID> trainOnly(const vector<ID>& raw) {
-		vector<ID> only;
-		for (ID id : raw) {
-			if (id > db.gdata.getLastTrainID()) {
-				break;
-			}
-			only.push_back(id);
-		}
-		return only;
-	}
-
 	inline vector<ID> concat(vector<ID>& a, vector<ID>& b) {
 		vector<ID> ab;
 		ab.reserve(a.size() + b.size()); // preallocate memory
@@ -57,17 +45,15 @@ namespace Calculator {
 		return ab;
 	}
 
-	inline double score(const vector<double>& ys, const vector<ID>& raw_targets, const vector<ID>& raw_posi) {
+	inline double score(const vector<double>& ys, const vector<ID>& targets, const vector<ID>& raw_posi) {
 		db.random_forest.incGainCount();
-		vector<ID> targets = trainOnly(raw_targets);
 		vector<ID> posi = setIntersec(targets, raw_posi);
 		vector<ID> nega = setDiff(targets, posi);
 		return posi.size() * imp(ys, posi) + nega.size() * imp(ys, nega);
 	}
 
-	inline double bound(const vector<double>& ys, const vector<ID>& raw_targets, const vector<ID>& raw_posi) {
+	inline double bound(const vector<double>& ys, const vector<ID>& targets, const vector<ID>& raw_posi) {
 		db.random_forest.incBoundCount();
-		vector<ID> targets = trainOnly(raw_targets);
 		vector<ID> posi = setIntersec(targets, raw_posi);
 		vector<ID> nega = setDiff(targets, posi);
 		vector<ID> posi_plus;
