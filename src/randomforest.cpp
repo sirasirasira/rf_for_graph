@@ -36,7 +36,7 @@ void CLASS::makeTargets() {
 	// Debug::IDs(target_tests); // debug
 }
 
-void CLASS::report(vector<double>& additive_ys) {
+void CLASS::report(const vector<double>& additive_ys) {
 	reportFeatureImportance();
 	db.evaluater.run(tree_count, train_targets, test_targets, additive_ys); // acc, auc
 	cout << "REPORT " << tree_count << " cache_size " << db.gspan.getCache().size() << endl;
@@ -44,13 +44,13 @@ void CLASS::report(vector<double>& additive_ys) {
 	cout << "REPORT " << tree_count << " bound_count " << bound_count << endl;
 	sum_gcount += gain_count;
 	sum_bcount += bound_count;
-	sum_ccount += db.gspan.getCache().size();
+	sum_csize += db.gspan.getCache().size();
 }
 
 void CLASS::report() {
 	reportFeatureImportance();
-	db.evaluater.run(test_targets); // acc, auc
-	cout << "REPORT " << tree_count << " RESULT cache_size " << sum_ccount << endl;
+	db.evaluater.run(tree_count, test_targets); // acc, auc
+	cout << "REPORT " << tree_count << " RESULT cache_size " << sum_csize << endl;
 	cout << "REPORT " << tree_count << " RESULT gain_count"  << sum_gcount << endl;
 	cout << "REPORT " << tree_count << " RESULT bound_count" << sum_bcount << endl;
 }

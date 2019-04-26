@@ -36,7 +36,7 @@ class RandomForest {
 		void plantFirst();
 		void calcImprity();
 		void plant();
-		inline void report(vector<int>& additive_ys);
+		inline void report(const vector<double>& additive_ys);
 		inline void report();
 		inline void reportFeatureImportance();
 };

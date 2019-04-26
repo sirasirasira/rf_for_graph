@@ -8,6 +8,19 @@ extern Setting setting;
 extern Database db;
 
 namespace Calculator {
+	inline bool isSameSign(double a, double b) {
+		if (a * b > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	inline double calcDeviation(double ans, double pred) {
+		using namespace std;
+		return log(1 + exp(-2 * ans * pred));
+	}
+
 	inline vector<ID> setDiff(const vector<ID>& a, const vector<ID>& b) {
 		vector<ID> vec;
 		std::set_difference(a.begin(), a.end(), b.begin(), b.end(), std::back_inserter(vec));

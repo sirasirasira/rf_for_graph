@@ -7,7 +7,7 @@
 extern Setting setting;
 extern Database db;
 
-void CLASS::run(size_t tree_count, vector<ID>& train_targets, vector<ID>& test_targets, vector<double>& additive_ys) {
+void CLASS::run(size_t tree_count, vector<ID>& train_targets, vector<ID>& test_targets, const vector<double>& additive_ys) {
 	calcACCAUCLoss(tree_count, "train", train_targets, additive_ys);
 	calcACCAUCLoss(tree_count, "test", test_targets, additive_ys);
 }
@@ -17,14 +17,15 @@ void CLASS::run(size_t tree_count, vector<ID>& test_targets) {
 }
 
 // @change pred_map
-void CLASS::calcACCAUCLoss(size_t tree_count, string type, vector<ID>& targets, vector<double>& ys) {
+void CLASS::calcACCAUCLoss(size_t tree_count, string type, vector<ID>& targets, const vector<double>& ys) {
 //TODO
 	size_t num_correct = 0;
+	size_t num_all = targets.size();
 	double loss_sum = 0;
 	map<double, vector<double>> pred_map;
-	for (ID gid = first_id; gid <= last_id; gid++) {
-		double y = db.raw_ys[gid];
-		double p = db.y_predictions[gid];
+	for (auto gid : targets) {
+		double y = db.ys[gid];
+		double p = ys[gid];
 		pred_map[p].push_back(y);
 		if (Calculator::isSameSign(y, p)) num_correct++;
 		loss_sum += Calculator::calcDeviation(y, p);
