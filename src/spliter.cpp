@@ -19,7 +19,6 @@ void CLASS::prepare(const vector<ID>& _targets) {
 	db.gspan.clearCache();
 	db.gspan.setSpliterPtr(this);
 	db.gspan.run(targets);
-	std::cout << "cache size: " << db.gspan.getCache().size() << std::endl;
 }
 
 vector<ID> CLASS::run(const vector<ID>& _targets) {

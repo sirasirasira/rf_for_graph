@@ -14,14 +14,6 @@ class RandomForest {
 			bound_count++;
 		}
 
-		void printGainCount() {
-			cout << "gain_count " << gain_count << endl;
-		}
-
-		void printBoundCount() {
-			cout << "bound_count " << bound_count << endl;
-		}
-
 		const vector<ID>& getTrainTargets() {
 			return train_targets;
 		}
@@ -36,11 +28,15 @@ class RandomForest {
 		size_t tree_count;
 		int gain_count = 0;
 		int bound_count = 0;
+		int sum_gcount = 0;
+		int sum_bcount = 0;
+		int sum_csize = 0;
 
 		void makeTargets();
 		void plantFirst();
 		void calcImprity();
 		void plant();
+		inline void report(vector<int>& additive_ys);
 		inline void report();
 		inline void reportFeatureImportance();
 };
