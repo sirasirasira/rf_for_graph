@@ -16,6 +16,7 @@ struct Database {
 	RandomForest random_forest;
 	Planter planter;
 	Spliter spliter;
+	Finder finder;
 	Gspan gspan;
 	Evaluater evaluater;
 };
