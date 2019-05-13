@@ -85,7 +85,6 @@ void CLASS::edgeGrow(GraphToTracers& g2tracers, int pnum) {
 		sum_of_edge += it->second.size();
 	}
 	if (sum_of_edge == 0) {
-		pattern.pop_back();
 		return;
 	}
 	vector<int> count = Dice::make_count(sum_of_edge, pnum);
@@ -122,6 +121,14 @@ void CLASS::edgeGrow(GraphToTracers& g2tracers, int pnum) {
 	}
 
 	cache.insert({pattern, CacheRecord(posi, childs)});
+}
+
+void CLASS::report(GraphToTracers& tracers) {
+	cout << tracers.size() << " ||" << pattern << "|| ";
+	for (auto x : tracers) {
+		cout << x.first << " ";
+	}
+	cout << endl;
 }
 
 // not minDFS

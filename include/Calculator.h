@@ -35,6 +35,7 @@ namespace Calculator {
 
 	inline double imp(const vector<double>& ys, const vector<ID>& train_targets) {
 		// gini
+		//cout << "calc gini" << endl;
 		double impurity;
 		int num = train_targets.size();
 		int n_posi = 0;
@@ -46,7 +47,8 @@ namespace Calculator {
 				n_nega++;
 			}
 		}
-		impurity = 1 - (pow(n_posi/num, 2) + pow(n_nega/num, 2));
+		impurity = 1 - (pow(double(n_posi)/num, 2) + pow(double(n_nega)/num, 2));
+		//cout << impurity << endl;
 		return impurity;
 	}
 
@@ -59,13 +61,16 @@ namespace Calculator {
 	}
 
 	inline double score(const vector<double>& ys, const vector<ID>& targets, const vector<ID>& raw_posi) {
+		//cout << "calc score" << endl;
 		db.random_forest.incGainCount();
 		vector<ID> posi = setIntersec(targets, raw_posi);
 		vector<ID> nega = setDiff(targets, posi);
-		return posi.size() * imp(ys, posi) + nega.size() * imp(ys, nega);
+		//cout << (posi.size() * imp(ys, posi) + nega.size() * imp(ys, nega)) / (posi.size() + nega.size()) << endl;
+		return (posi.size() * imp(ys, posi) + nega.size() * imp(ys, nega)) / (posi.size() + nega.size());
 	}
 
 	inline double bound(const vector<double>& ys, const vector<ID>& targets, const vector<ID>& raw_posi) {
+		//cout << "calc bound" << endl;
 		db.random_forest.incBoundCount();
 		vector<ID> posi = setIntersec(targets, raw_posi);
 		vector<ID> nega = setDiff(targets, posi);
@@ -78,8 +83,9 @@ namespace Calculator {
 				posi_minus.push_back(id);
 			}
 		}
-		double res1 = (posi_minus.size() + nega.size()) * imp(ys, concat(nega, posi_minus));
-		double res2 = (posi_plus.size() + nega.size()) * imp(ys, concat(nega, posi_plus));
+		double res1 = ((posi_minus.size() + nega.size()) * imp(ys, concat(nega, posi_minus))) / (posi.size() + nega.size());
+		double res2 = ((posi_plus.size() + nega.size()) * imp(ys, concat(nega, posi_plus))) / (posi.size() + nega.size());
+		//cout << "res1: " << res1 << " res2: " << res2 << " min: " << std::min(res1, res2) << endl;
 		return std::min(res1, res2);
 	}
 }

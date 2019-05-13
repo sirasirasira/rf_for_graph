@@ -8,7 +8,6 @@ class Spliter {
 		void prepare(const vector<ID>& targets);
 		vector<ID> run(const vector<ID>& targets);
 		void update(Pattern pattern, vector<ID> posi);
-		bool isBounded(vector<ID> posi);
 		inline bool valid() {
 			return valid_flg;
 		}

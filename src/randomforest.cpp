@@ -48,11 +48,10 @@ void CLASS::report(const vector<double>& additive_ys) {
 }
 
 void CLASS::report() {
-	reportFeatureImportance();
 	db.evaluater.run(tree_count, test_targets); // acc, auc
 	cout << "REPORT " << tree_count << " RESULT cache_size " << sum_csize << endl;
-	cout << "REPORT " << tree_count << " RESULT gain_count"  << sum_gcount << endl;
-	cout << "REPORT " << tree_count << " RESULT bound_count" << sum_bcount << endl;
+	cout << "REPORT " << tree_count << " RESULT gain_count "  << sum_gcount << endl;
+	cout << "REPORT " << tree_count << " RESULT bound_count " << sum_bcount << endl;
 }
 
 void CLASS::reportFeatureImportance() {

@@ -31,16 +31,12 @@ void CLASS::grow(const vector<ID>& train_targets, const vector<ID>& test_targets
 	}
 	const auto best_pattern = db.spliter.getBestPattern();
 	db.gspan.updataFeatureImportance(best_pattern, db.spliter.getImportance());
-	vector<ID> posi_test_targets = checkIsomorphism(best_pattern, test_targets);
+	vector<ID> posi_test_targets = db.finder.run(best_pattern, test_targets);
 	grow(posi_train_targets, posi_test_targets, depth + 1);
 	cout << string(depth, '-') << "* " << best_pattern << endl;
 	vector<ID> nega_train_targets = Calculator::setDiff(train_targets, posi_train_targets);
 	vector<ID> nega_test_targets = Calculator::setDiff(test_targets, posi_test_targets);
 	grow(nega_train_targets, nega_test_targets, depth + 1);
-}
-
-vector<ID> CLASS::checkIsomorphism(const Pattern& best_pattern, const vector<ID>& test_targets) {
-//TODO
 }
 
 bool CLASS::checkLeafConditions(const vector<ID>& train_targets, size_t depth) {

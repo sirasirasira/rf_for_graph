@@ -84,13 +84,3 @@ void CLASS::update(Pattern pattern, vector<ID> posi) {
 		best_pattern = pattern;
 	}
 }
-
-bool CLASS::isBounded(vector<ID> posi) {
-	double min_bound = Calculator::bound(db.ys, targets, posi);
-	if (min_score <= min_bound) {
-		return true;
-	} else {
-		return false;
-	}
-}
-

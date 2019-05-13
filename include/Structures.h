@@ -57,6 +57,35 @@ inline bool operator == (const Triplet& l, const Triplet& r) {
 	return (l.x == r.x and l.y == r.y and l.z == r.z);
 }
 
+struct IntPair {
+public:
+  int g;
+  int s;
+  int rank;
+};
+
+inline bool operator< (const IntPair& left, const IntPair& right){
+  return (left.rank < right.rank);
+}
+
+struct Counterpart {
+public:
+  int target;
+  int rank;
+};
+
+inline bool operator< (const Counterpart& left, const Counterpart& right){
+  return (left.rank < right.rank);
+}
+
+typedef map<int,vector<int> > occurence;
+
+struct datapack {
+  int cmp;
+  int seq;
+  int label;
+};
+
 struct VertexPair : public Pair {
 	ID id;
 };

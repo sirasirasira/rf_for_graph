@@ -13,7 +13,8 @@ void CLASS::run(size_t tree_count, vector<ID>& train_targets, vector<ID>& test_t
 }
 
 void CLASS::run(size_t tree_count, vector<ID>& test_targets) {
-	calcACCAUCLoss(tree_count, "RESULT", test_targets, db.y_predictions);
+	cout << endl;
+	calcACCAUCLoss(tree_count, "RESULT ", test_targets, db.y_predictions);
 }
 
 // @change pred_map
