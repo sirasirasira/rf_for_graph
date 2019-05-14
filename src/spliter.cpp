@@ -17,6 +17,7 @@ void CLASS::prepare(const vector<ID>& _targets) {
 	// Debug::IDs(targets); // debug
 	targets = _targets;
 	db.gspan.clearCache();
+	db.gspan.cleare1Patterns();
 	db.gspan.setSpliterPtr(this);
 	db.gspan.run(targets);
 }

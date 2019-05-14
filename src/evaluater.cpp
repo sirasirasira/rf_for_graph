@@ -19,7 +19,6 @@ void CLASS::run(size_t tree_count, vector<ID>& test_targets) {
 
 // @change pred_map
 void CLASS::calcACCAUCLoss(size_t tree_count, string type, vector<ID>& targets, const vector<double>& ys) {
-//TODO
 	size_t num_correct = 0;
 	size_t num_all = targets.size();
 	double loss_sum = 0;

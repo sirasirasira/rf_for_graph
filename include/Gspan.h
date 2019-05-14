@@ -38,7 +38,7 @@ class Gspan {
 		}
 
 		inline void cleare1Patterns() {
-			e1patterns.resize(0);
+			e1patterns.clear();
 		}
 
 		inline void reportCache() {
