@@ -63,6 +63,10 @@ void CLASS::makeLeaf(const vector<ID>& train_targets, const vector<ID>& test_tar
 	} else {
 		updateAdditiveYs(train_targets, test_targets, -1);
 	}
+	/*
+	// regression
+	updateAdditiveYs(train_targets, test_targets, mean);
+	*/
 
 	cout << string(depth, '-') << "* " << "[" << count << "] " << mean << endl;
 }

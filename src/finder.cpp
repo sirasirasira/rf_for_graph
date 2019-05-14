@@ -51,6 +51,7 @@ void CLASS::gtraverse(unsigned int cur) {
 	const int from = pattern[cur].time.a;
 	const int to = pattern[cur].time.b;
 	if (to < from) {
+		// backward
 		for (auto e : g[vids[from]]) {
 			if (e.to == vids[to]) {
 				//TODO
@@ -58,11 +59,12 @@ void CLASS::gtraverse(unsigned int cur) {
 			}
 		}
 	} else {
+		// forward
 		int elabel = pattern[cur].labels.y;
 		int vlabel = pattern[cur].labels.z;
 		for (auto e : g[vids[from]]) {
-			if (e.labels.y == elabel and e.labels.z == vlabel and ndiscovered(to)) {
-				vids.push_back(to);
+			if (e.labels.y == elabel and e.labels.z == vlabel and ndiscovered(e.to)) {
+				vids.push_back(e.to);
 				gtraverse(cur+1);
 				vids.pop_back();
 			}
