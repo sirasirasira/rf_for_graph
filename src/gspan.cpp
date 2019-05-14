@@ -70,6 +70,9 @@ bool CLASS::check_pattern(Pattern pattern, GraphToTracers& g2tracers) {
 void CLASS::edgeGrow(GraphToTracers& g2tracers, int pnum) {
 	// std::cout << "debug edgeGrow" << std::endl; // debug
 	// report(g2tracers);
+	if (!check_pattern(pattern, g2tracers)) {
+		return;
+	}
 	vector<ID> posi = getPosiIds(g2tracers);
 
 	map<int, PairSorter, std::greater<int>> b_heap;
@@ -87,6 +90,7 @@ void CLASS::edgeGrow(GraphToTracers& g2tracers, int pnum) {
 	if (sum_of_edge == 0) {
 		return;
 	}
+	// std::cout << "edge num" << sum_of_edge << std::endl; // debug
 	vector<int> count = Dice::make_count(sum_of_edge, pnum);
 
 	// projecting

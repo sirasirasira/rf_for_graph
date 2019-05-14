@@ -5,6 +5,7 @@
 extern Database db;
 
 vector<ID> CLASS::run(const Pattern& best_pattern, const vector<ID>& targets) {
+	//cout << "finder run" << endl;
 	pattern = best_pattern;
 
 	vector<ID> posi;
@@ -53,7 +54,7 @@ void CLASS::gtraverse(unsigned int cur) {
 		for (auto e : g[vids[from]]) {
 			if (e.to == vids[to]) {
 				//TODO
-				gtraverse(cur++);
+				gtraverse(cur+1);
 			}
 		}
 	} else {
@@ -62,7 +63,7 @@ void CLASS::gtraverse(unsigned int cur) {
 		for (auto e : g[vids[from]]) {
 			if (e.labels.y == elabel and e.labels.z == vlabel and ndiscovered(to)) {
 				vids.push_back(to);
-				gtraverse(cur++);
+				gtraverse(cur+1);
 				vids.pop_back();
 			}
 		}

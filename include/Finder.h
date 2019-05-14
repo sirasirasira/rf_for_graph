@@ -11,7 +11,7 @@ class Finder {
 		Pattern pattern;
 		Graph g;
 		bool exist;
-		vector<unsigned int> vids;
+		vector<ID> vids;
 
 		bool gcheck(const ID gid);
 		void gtraverse(unsigned int cur);

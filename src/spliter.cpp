@@ -14,8 +14,8 @@ void CLASS::initMinScore() {
 
 void CLASS::prepare(const vector<ID>& _targets) {
 	// std::cout << "debug Spliter prepare" << std::endl; // debug
-	targets = _targets;
 	// Debug::IDs(targets); // debug
+	targets = _targets;
 	db.gspan.clearCache();
 	db.gspan.setSpliterPtr(this);
 	db.gspan.run(targets);
