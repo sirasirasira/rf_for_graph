@@ -159,7 +159,7 @@ int Gspan::scanGspan(GraphToTracers& g2tracers, map<int, PairSorter, std::greate
 			Graph& g = db.gdata[gid];
 			vector<bool> tested(g.num_of_edges);
 			vector<bool> discovered(g.size());
-			vector<int> g_to_dfs(g.size(), -1);
+			vector<int> vid2time(g.size(), -1);
 
 			for (int i = vpairs.size()-1; i >= 0; --i, tracer = tracer->predec) {
 				vpairs[i] = tracer->vpair;
@@ -168,9 +168,9 @@ int Gspan::scanGspan(GraphToTracers& g2tracers, map<int, PairSorter, std::greate
 				tested[vidbase + 1] = true;
 				discovered[vpairs[i].a] = discovered[vpairs[i].b] = true;
 
-				g_to_dfs[vpairs[i].b] = pattern[i].time.b;
+				vid2time[vpairs[i].b] = pattern[i].time.b;
 				if (i == 0) {
-					g_to_dfs[vpairs[i].a] = pattern[i].time.a;
+					vid2time[vpairs[i].a] = pattern[i].time.a;
 				}
 			}
 
@@ -183,16 +183,16 @@ int Gspan::scanGspan(GraphToTracers& g2tracers, map<int, PairSorter, std::greate
 					Edge& added_edge = g[i][j];
 					if (discovered[added_edge.to]) {
 						// backward
-						if (tested[added_edge.id] == false and g_to_dfs[i] > g_to_dfs[added_edge.to]) {
-							pkey.set(added_edge.labels.y,g_to_dfs[added_edge.to]);
+						if (!tested[added_edge.id] and vid2time[i] > vid2time[added_edge.to]) {
+							pkey.set(added_edge.labels.y,vid2time[added_edge.to]);
 							cursor.set(i,added_edge.to,added_edge.id,&(*it));
-							b_heap[g_to_dfs[i]][pkey][gid].push_back(cursor);
+							b_heap[vid2time[i]][pkey][gid].push_back(cursor);
 						}
 					} else {
 						// forward
 						pkey.set(added_edge.labels.y,added_edge.labels.z);
 						cursor.set(i,added_edge.to,added_edge.id,&(*it));
-						f_heap[g_to_dfs[i]][pkey][gid].push_back(cursor);
+						f_heap[vid2time[i]][pkey][gid].push_back(cursor);
 					}
 				}
 			}
