@@ -34,8 +34,7 @@ namespace Calculator {
 	}
 
 	inline double imp(const vector<double>& ys, const vector<ID>& train_targets) {
-		// gini
-		//cout << "calc gini" << endl;
+		//cout << "calc impurity" << endl;
 		double impurity;
 		int num = train_targets.size();
 		int n_posi = 0;
@@ -47,7 +46,10 @@ namespace Calculator {
 				n_nega++;
 			}
 		}
-		impurity = 1 - (pow(double(n_posi)/num, 2) + pow(double(n_nega)/num, 2));
+		// gini
+		//impurity = 1 - (pow(double(n_posi)/num, 2) + pow(double(n_nega)/num, 2));
+		// entropy
+		impurity = 1 - ((double(n_posi)/num) * log2(double(n_posi)/num) + (double(n_nega)/num) * log2(double(n_nega)/num));
 		//cout << impurity << endl;
 		return impurity;
 	}

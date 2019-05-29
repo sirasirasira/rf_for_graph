@@ -38,17 +38,15 @@ bool CLASS::minChecker(Pattern& comp, Graph& g, Tracers& tracers) {
 	int maxtoc = comp[rm_path_index[0]].time.b;
 
 	vector<VertexPair> vpairs(comp.size());
-	map<Pair, Tracers> b_heap;
-	map<Pair, Tracers> f_heap;
+	map<Pair, Tracers> b_heap, f_heap;
 	EdgeTracer* tracer;
 	EdgeTracer cursor;
 	Pair pkey;
 
+	// same scan_gspan
 	for (auto itr = tracers.begin(); itr != tracers.end(); itr++) {
 		// an instance (a sequence of vertex pairs) as vector "vpair"
 		tracer = &(*itr);
-		//vector<bool> discovered(g.size());
-		//vector<bool> tested(g.num_of_edges);
 		vector<char> discovered(g.size(), false); // as bool vector
 		vector<char> tested(g.num_of_edges, false); // as bool vector
 
@@ -68,7 +66,7 @@ bool CLASS::minChecker(Pattern& comp, Graph& g, Tracers& tracers) {
 				size_t idx = rm_path_index[j];
 				if (tested[added_edge.id]) continue;
 				if (vpairs[idx].a != added_edge.to) continue;
-				if (comp[idx].labels <= added_edge.labels.reverse()) {
+				if (comp[idx].labels <= added_edge.labels.reverse()) { // constrain min order
 					pkey.set(comp[idx].time.a, added_edge.labels.y);
 					cursor.set(rm_vpair.b, added_edge.to, added_edge.id, &(*itr));
 					b_heap[pkey].push_back(cursor);
@@ -107,8 +105,6 @@ bool CLASS::minChecker(Pattern& comp, Graph& g, Tracers& tracers) {
 		int i = rm_path_index[j];
 		for (auto itr = tracers.begin(); itr != tracers.end(); itr++) {
 			tracer = &(*itr);
-			//vector<bool> discovered(g.size());
-			//vector<bool> tested(g.num_of_edges);
 			vector<char> discovered(g.size(), false); // as bool vector
 			vector<char> tested(g.num_of_edges, false); // as bool vector
 			for (int k = vpairs.size() - 1; k >= 0; k--, tracer = tracer->predec) {
@@ -120,7 +116,7 @@ bool CLASS::minChecker(Pattern& comp, Graph& g, Tracers& tracers) {
 			for (size_t k = 0; k < g[from_vpair.a].size(); k++) {
 				Edge& added_edge = g[from_vpair.a][k];
 				if (minlabel > added_edge.labels.z or discovered[added_edge.to]) continue;
-				if (comp[i].labels <= added_edge.labels) {
+				if (comp[i].labels <= added_edge.labels) { // constrain min order
 					from = comp[i].time.a;
 					pkey.set(added_edge.labels.y, added_edge.labels.z);
 					cursor.set(from_vpair.a, added_edge.to, added_edge.id, &(*itr));

@@ -37,12 +37,12 @@ inline bool operator != (const DFSCode& l, const DFSCode& r) {
 	return !(l == r);
 }
 
-inline bool operator < (const DFSCode& l, const DFSCode& r) {
-	if (l.time < r.time) return true;
-	if (r.time < l.time) return false;
-	if (l.labels < r.labels) return true;
-	if (r.labels < l.labels) return false;
-	return false;
+inline bool operator < (const DFSCode& l, const DFSCode& r) { // original gspan order
+	if(l.time.a != r.time.a) return l.time.a > r.time.a;
+	if(l.time.b != r.time.b) return l.time.b < r.time.b;
+	if(l.labels.x != r.labels.x) return l.labels < r.labels;
+	if(l.labels.y != r.labels.y) return l.labels.y < r.labels.y;
+	return (l.labels.z < r.labels.z);
 }
 
 using Pattern = vector<DFSCode>;
